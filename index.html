@@ -1,1 +1,404 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#fff0f5">
+<title>A Little Surprise For You 💗</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Georgia, "Times New Roman", serif;
+  color: #603b50;
+  background: linear-gradient(145deg, #fff5f7, #ffe2ec, #fff7e8);
+  text-align: center;
+  overflow-x: hidden;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.music {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  z-index: 10;
+  border: 1px solid #efb7cd;
+  background: #ffffffed;
+  color: #a34f78;
+  padding: 11px 14px;
+  border-radius: 30px;
+  font-size: 13px;
+}
+
+main {
+  width: min(100%, 480px);
+  margin: auto;
+  padding: 75px 22px 55px;
+  position: relative;
+  z-index: 1;
+}
+
+.eyebrow {
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font: 11px Arial, sans-serif;
+  color: #b46b8d;
+}
+
+h1 {
+  font-size: clamp(38px, 10vw, 55px);
+  line-height: 1.12;
+  margin: 18px 0;
+  font-weight: normal;
+}
+
+h1 span { color: #df759f; }
+
+p {
+  line-height: 1.8;
+  font-size: 16px;
+}
+
+.hero-heart {
+  font-size: 65px;
+  display: inline-block;
+  animation: heartbeat 1.5s infinite;
+  filter: drop-shadow(0 8px 12px #e99ab955);
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.12); }
+}
+
+.card {
+  background: #ffffffa8;
+  border: 1px solid white;
+  box-shadow: 0 12px 35px #a9537710;
+  border-radius: 25px;
+  padding: 25px 20px;
+  margin-top: 25px;
+}
+
+.btn {
+  border: 0;
+  background: #d96896;
+  color: white;
+  border-radius: 30px;
+  padding: 14px 23px;
+  font-size: 15px;
+  margin: 7px 3px;
+  box-shadow: 0 5px 15px #d9689630;
+  transition: transform .2s;
+}
+
+.btn:active { transform: scale(.96); }
+
+.btn.secondary {
+  color: #a34f78;
+  background: white;
+  border: 1px solid #f2cada;
+  box-shadow: none;
+  min-width: 65px;
+  font-size: 21px;
+}
+
+.hidden { display: none; }
+
+.reveal {
+  margin-top: 18px;
+  padding: 17px;
+  background: #fff4f8;
+  border-radius: 17px;
+  line-height: 1.8;
+  animation: appear .5s ease;
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.envelope {
+  font-size: 75px;
+  border: none;
+  background: transparent;
+  transition: transform .3s;
+}
+
+.envelope:active { transform: rotate(-8deg) scale(1.1); }
+
+footer {
+  margin-top: 40px;
+  font-size: 12px;
+  color: #aa7890;
+  line-height: 1.8;
+}
+
+.float {
+  position: fixed;
+  bottom: -35px;
+  pointer-events: none;
+  z-index: 0;
+  animation: floatUp linear forwards;
+}
+
+@keyframes floatUp {
+  to {
+    transform: translateY(-115vh) rotate(35deg);
+    opacity: 0;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<button class="music" id="musicBtn" onclick="toggleMusic()">
+  ♫ Play our little tune
+</button>
+
+<main>
+  <div class="eyebrow">a tiny corner of the universe</div>
+
+  <div class="hero-heart">💗</div>
+
+  <h1>Happy Birthday,<br><span>my favourite human.</span></h1>
+
+  <p>
+    Hey, you. 🌷<br>
+    I made a little something for you.<br>
+    It's not much, but every bit of it<br>
+    comes with love.
+  </p>
+
+  <button class="btn" onclick="openSurprise()">
+    Open your surprise ✨
+  </button>
+
+  <section class="card hidden" id="surprise">
+    <div style="font-size:35px">🎀</div>
+    <h2 style="font-weight:normal">Welcome to your little world</h2>
+    <p>
+      Today, the universe has one very important job:
+      reminding you how special you are.
+    </p>
+    <p>And I have a few tiny surprises for you…</p>
+  </section>
+
+  <section class="card" id="littleThings">
+    <div class="eyebrow">a few tiny things</div>
+    <h2 style="font-weight:normal">Choose a little heart 💌</h2>
+    <p>Each one is hiding something for you.</p>
+
+    <button class="btn secondary" onclick="reveal(0)">💗</button>
+    <button class="btn secondary" onclick="reveal(1)">🌷</button>
+    <button class="btn secondary" onclick="reveal(2)">⭐</button>
+
+    <div class="reveal hidden" id="message"></div>
+  </section>
+
+  <section class="card">
+    <div class="eyebrow">sealed with love</div>
+    <h2 style="font-weight:normal">A little letter for you</h2>
+    <p>There's something waiting inside this envelope.</p>
+
+    <button class="envelope" onclick="openLetter()"
+      aria-label="Open birthday letter">💌</button>
+
+    <div class="reveal hidden" id="letter">
+      <h3 style="font-weight:normal">To my favourite person, 💗</h3>
+      <p>Happy Birthday, you. 🥹</p>
+      <p>
+        I hope this new chapter brings you peaceful days,
+        unexpected happiness, beautiful opportunities,
+        and a thousand reasons to smile.
+      </p>
+      <p>
+        You deserve kindness on the difficult days,
+        laughter on the ordinary ones, and dreams
+        that slowly become real.
+      </p>
+      <p>
+        Thank you for being you. I'm really glad
+        our paths crossed.
+      </p>
+      <p>With lots of love, always. 🌷</p>
+    </div>
+  </section>
+
+  <section class="card">
+    <div style="font-size:35px">🎂</div>
+    <h2 style="font-weight:normal">One last little wish</h2>
+    <p>
+      Close your eyes for a second and make a wish.
+      No telling me what it is! 🤭
+    </p>
+    <button class="btn" onclick="finalWish()">
+      My wish is made ✨
+    </button>
+    <div class="reveal hidden" id="final">
+      May life be gentle with your heart,
+      may your smile find its way back on hard days,
+      and may this year surprise you in the loveliest ways.
+      💗
+      <p>Happy Birthday, sunshine. ☀️</p>
+    </div>
+  </section>
+
+  <footer>
+    made with a little code & a lot of heart ♡<br>
+    your little corner of the universe 🌙
+  </footer>
+</main>
+
+<script>
+const messages = [
+  "In a world full of people, there is only one you. Never forget how special that is. 💗",
+  "I hope you laugh until your cheeks hurt and find little reasons to be happy every day. 🌷",
+  "Here's your reminder that you are worthy of every beautiful thing you dream of. ⭐"
+];
+
+function openSurprise() {
+  document.getElementById("surprise").classList.remove("hidden");
+  document.getElementById("surprise").scrollIntoView({
+    behavior: "smooth", block: "center"
+  });
+  burstHearts();
+}
+
+function reveal(index) {
+  const box = document.getElementById("message");
+  box.textContent = messages[index];
+  box.classList.remove("hidden");
+  burstHearts();
+}
+
+function openLetter() {
+  document.getElementById("letter").classList.remove("hidden");
+  document.getElementById("letter").scrollIntoView({
+    behavior: "smooth", block: "center"
+  });
+  burstHearts();
+}
+
+function finalWish() {
+  document.getElementById("final").classList.remove("hidden");
+  burstHearts();
+}
+
+function burstHearts() {
+  const emojis = ["💗", "💕", "✨", "🌸", "💖"];
+
+  for (let i = 0; i < 15; i++) {
+    const el = document.createElement("div");
+    el.className = "float";
+    el.textContent = emojis[
+      Math.floor(Math.random() * emojis.length)
+    ];
+    el.style.left = Math.random() * 100 + "vw";
+    el.style.fontSize = (15 + Math.random() * 20) + "px";
+    el.style.animationDuration = (3 + Math.random() * 3) + "s";
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 6500);
+  }
+}
+
+/* A little melody generated in the browser — no audio file needed. */
+let audioContext = null;
+let musicTimer = null;
+let noteIndex = 0;
+let musicPlaying = false;
+
+const melody = [
+  [523.25, 0.25], [659.25, 0.25], [783.99, 0.4],
+  [659.25, 0.3], [587.33, 0.3], [698.46, 0.3],
+  [659.25, 0.5], [523.25, 0.4], [587.33, 0.3],
+  [523.25, 0.6], [392.00, 0.4], [523.25, 0.7]
+];
+
+function playNote() {
+  if (!musicPlaying || !audioContext) return;
+
+  const [frequency, duration] = melody[noteIndex];
+  const oscillator = audioContext.createOscillator();
+  const gain = audioContext.createGain();
+
+  oscillator.type = "sine";
+  oscillator.frequency.value = frequency;
+
+  gain.gain.setValueAtTime(0.0001, audioContext.currentTime);
+  gain.gain.exponentialRampToValueAtTime(
+    0.12, audioContext.currentTime + 0.03
+  );
+  gain.gain.exponentialRampToValueAtTime(
+    0.0001, audioContext.currentTime + duration
+  );
+
+  oscillator.connect(gain);
+  gain.connect(audioContext.destination);
+
+  oscillator.start();
+  oscillator.stop(audioContext.currentTime + duration + 0.05);
+
+  noteIndex = (noteIndex + 1) % melody.length;
+  musicTimer = setTimeout(playNote, duration * 1000 + 100);
+}
+
+async function toggleMusic() {
+  const button = document.getElementById("musicBtn");
+
+  if (musicPlaying) {
+    musicPlaying = false;
+    clearTimeout(musicTimer);
+    if (audioContext) await audioContext.suspend();
+    button.textContent = "♫ Play our little tune";
+    return;
+  }
+
+  try {
+    const Audio = window.AudioContext || window.webkitAudioContext;
+    if (!Audio) {
+      button.textContent = "Music isn't supported here";
+      return;
+    }
+
+    if (!audioContext) audioContext = new Audio();
+    await audioContext.resume();
+
+    musicPlaying = true;
+    button.textContent = "♫ Pause our little tune";
+    playNote();
+  } catch (error) {
+    button.textContent = "Tap to try music again ♫";
+  }
+}
+
+/* A few floating hearts drift through the background. */
+setInterval(() => {
+  const el = document.createElement("div");
+  el.className = "float";
+  el.textContent = ["♡", "💗", "✧", "🌸"][
+    Math.floor(Math.random() * 4)
+  ];
+  el.style.left = Math.random() * 100 + "vw";
+  el.style.fontSize = (14 + Math.random() * 15) + "px";
+  el.style.animationDuration = (7 + Math.random() * 5) + "s";
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 12500);
+}, 1200);
+</script>
+
+</body>
+  </html>
+  
